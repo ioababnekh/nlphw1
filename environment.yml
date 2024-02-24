@@ -19,3 +19,4 @@ dependencies:
     - seaborn
     - pandas
     - transformers[torch]
+    - Flask

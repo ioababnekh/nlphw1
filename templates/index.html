@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stan Marsh Chatbot</title>
+  <script>
+    async function submitQuery(event) {
+      event.preventDefault();
+
+      const queryInput = document.getElementById('query');
+      const query = queryInput.value;
+      const responseData = document.getElementById('response-data');
+
+      responseData.innerHTML = '';
+
+      try {
+        const response = await fetch('/respond', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ query: query }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`${response.status}`);
+        }
+
+        const data = await response.json();
+
+        responseData.innerHTML = `<p><strong>Response:</strong> ${data.response}</p><p><strong>Score:</strong> ${data.score}</p>`;
+      } catch (error) {
+        responseData.innerHTML = `<p>Error fetching response: ${error.message}</p>`;
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Say something to Stan Marsh</h1>
+  <form id="query-form" onsubmit="submitQuery(event)">
+    <label for="query">Your text:</label><br>
+    <textarea id="query" name="query" required></textarea><br>
+    <input type="submit" value="Submit">
+  </form>
+  <div id="response-data"></div>
+</body>
+
+</html>
