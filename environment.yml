@@ -1,0 +1,21 @@
+name: nlphw1
+channels:
+  - pytorch
+  - nvidia
+  - huggingface
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - datasets
+  - scikit-learn
+  - pip
+  - pip:
+    - matplotlib
+    - tqdm
+    - seaborn
+    - pandas
+    - transformers[torch]
